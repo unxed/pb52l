@@ -55,9 +55,9 @@ int check_prefix_buffer() {
   return 1;
 }
 
-void send_to_pbcopy() {
-  FILE* pbcopy = popen("base64 -D | pbcopy", "w");
-  if (!pbcopy) fatal_errno("could not start pbcopy");
+void send_to_xclip() {
+  FILE* xclip = popen("base64 -d | xclip -selection clipboard", "w");
+  if (!xclip) fatal_errno("could not start xclip");
 
   while (1) {
     int b = read_stdin();
@@ -67,17 +67,17 @@ void send_to_pbcopy() {
     }
     if (b == '\007') break;
 
-    if (EOF == fputc(b, pbcopy)) {
-      fprintf(stderr, "could not send character to pbcopy\n");
+    if (EOF == fputc(b, xclip)) {
+      fprintf(stderr, "could not send character to xclip\n");
       exit(4);
     }
   }
 
   errno = 0;
-  int pclose_res = pclose(pbcopy);
+  int pclose_res = pclose(xclip);
   if (!pclose_res) return;
-  if (errno != 0) fatal_errno("could not close pbcopy stdin stream");
-  fprintf(stderr, "pbcopy returned error: %d\n", pclose_res);
+  if (errno != 0) fatal_errno("could not close xclip stdin stream");
+  fprintf(stderr, "xclip returned error: %d\n", pclose_res);
   exit(1);
 }
 
@@ -108,6 +108,6 @@ int main(int argc, char** argv) {
       if (c == ';') break;
     }
 
-    send_to_pbcopy();
+    send_to_xclip();
   }
 }
