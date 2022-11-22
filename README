@@ -1,7 +1,8 @@
 pb52l:  Filter output from your shell to make any X11 terminal OSC 52-capable 
 
 This simple tool makes any X11 terminal capable of copying/pasting text with the
-OSC 52 escape sequence.
+OSC 52 escape sequence. You will need to install xclip tool for this to work
+(something like apt-get install xclip).
 
 You can compile like this:
 
