@@ -16,4 +16,4 @@ Or like this to use it locally with bash:
 
   $ bash -l | ./pb52l
 
-Based on https://github.com/matvore/pb52 adopted for xclip tool
+Based on similar MacOS tool https://github.com/matvore/pb52 adopted for xclip
